@@ -19,7 +19,6 @@ def post_loans(request):
         if serializer.is_valid():
             loan = serializer.save()
             return Response({"loan_id": loan.id, "installment": loan.installment()})
-        print("XAU XAU XAU")
-        print(serializer.errors)
+        return Response(serializer.errors)
     except Exception as e:
-        return Response({"Status": False, "E": str(e)}, status=400)
+        return Response({"erro": str(e)}, status=400)
