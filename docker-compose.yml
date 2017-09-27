@@ -1,0 +1,77 @@
+version: '2'
+services:
+# Container MYSQL
+  docker_mysql:
+    image: mysql:5.6.27
+    container_name: docker_mysql
+    hostname: docker_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=desafio123
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=desafio123
+      - MYSQL_DATABASE=desafio
+      - MYSQL_ENDPOINT=mysql://user:desafio123@docker_mysql:3306/desafio
+    ports:
+      - "3306:3306"
+  container_migrations:
+    hostname: container_migrations
+    container_name: container_migrations
+    build:
+      context: ./config/django
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/app/
+    links:
+      - docker_mysql:docker_mysql
+      - container_django
+    environment:
+      - DEBUG=True
+      - PYTHONUNBUFFERED=0
+      - MYSQL_ROOT_PASSWORD=desafio123
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=desafio123
+      - MYSQL_DATABASE=desafio
+      - MYSQL_ENDPOINT=mysql://user:desafio123@docker_mysql:3306/desafio
+    command: bash -c "source config/migrations.sh"
+    depends_on:
+      - docker_mysql
+# Django
+  container_django:
+    restart: always
+    container_name: container_django
+    hostname: container_django
+    build:
+      context: ./config/django
+      dockerfile: Dockerfile
+    environment:
+      - DEBUG=True
+      - PYTHONUNBUFFERED=0
+      - MYSQL_ROOT_PASSWORD=desafio123
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=desafio123
+      - MYSQL_DATABASE=desafio
+      - MYSQL_ENDPOINT=mysql://user:desafio123@docker_mysql:3306/desafio
+    links:
+      - docker_mysql:docker_mysql
+    volumes:
+      - .:/usr/src/app/
+    expose:
+      - "443"
+      - "8000"
+    ports:
+      - "443:443"
+    command: bash -c "source config/startup.sh"
+    depends_on:
+      - docker_mysql
+
+  desafio_web:
+    image: nginx:latest
+    container_name: desafio_web
+    hostname: desafio_web
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/usr/src/app/
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - container_django
