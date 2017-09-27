@@ -16,53 +16,6 @@
   "author": "Marcus Vinicius Carvalho",
   "license": "ISC",
   "homepage": "",
-  "eslintConfig": {
-    "extends": "airbnb-base",
-    "installedESLint": true,
-    "plugins": [
-      "chai-friendly",
-      "import"
-    ],
-    "rules": {
-      "import/no-extraneous-dependencies": 0,
-      "no-unused-expressions": 0,
-      "import/no-unresolved": 0,
-      "import/extensions": 0,
-      "chai-friendly/no-unused-expressions": 2,
-      "valid-jsdoc": [
-        "error",
-        {
-          "requireReturn": false,
-          "requireReturnDescription": false
-        }
-      ],
-      "require-jsdoc": [
-        "error",
-        {
-          "require": {
-            "FunctionDeclaration": true,
-            "MethodDefinition": false,
-            "ClassDeclaration": false,
-            "ArrowFunctionExpression": false
-          }
-        }
-      ]
-    },
-    "env": {
-      "browser": true,
-      "node": true,
-      "mocha": true
-    },
-    "globals": {
-      "window": true,
-      "jQuery": true,
-      "chai": true,
-      "ga": true,
-      "expect": true,
-      "sinon": true,
-      "$": true
-    }
-  },
   "devDependencies": {
     "eslint": "^3.17.1",
     "eslint-config-airbnb-base": "^11.1.1",
