@@ -56,10 +56,10 @@ services:
     volumes:
       - .:/usr/src/app/
     expose:
-      - "443"
+      - "500"
       - "8000"
     ports:
-      - "443:443"
+      - "500:500"
     command: bash -c "source config/startup.sh"
     depends_on:
       - docker_mysql

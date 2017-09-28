@@ -15,6 +15,11 @@ class Loan(models.Model):
         monthly = (r + (r / ((1 + r) ** self.term - 1))) * self.amount
         return float("%.2f" % monthly)
 
+    def balance(self, date):
+        payments = Payment.objects.filter(date__lte=date, loan=self)
+        total = (payments.aggregate(total=models.Sum('amount'))['total'])
+        return total
+
     def get_loan_id_formatted(self):
         return self.id
 
@@ -27,7 +32,8 @@ class Payment(models.Model):
         (MADE, 'Payment made'),
         (MISSED, 'Payment missed'),
     )
-    amount = models.IntegerField(validators=[MinValueValidator(1)])
+
+    amount = models.FloatField(validators=[MinValueValidator(1)])
     payment = models.CharField(max_length=6, choices=PAYMANT_CHOICES)
     date = models.DateTimeField()
     loan = models.ForeignKey(Loan, on_delete=models.CASCADE)

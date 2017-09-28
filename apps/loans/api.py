@@ -35,9 +35,22 @@ def post_paymantes_loan(request, id_loan):
         data['loan'] = id_loan
         serializer = PaymentSerializer(data=data)
         if serializer.is_valid():
-            print("OI OI OI")
-            loan = serializer.save()
-            return Response({"loan_id": loan.get_loan_id_formatted(), "installment": loan.installment()})
+            payment = serializer.save()
+            return Response(PaymentSerializer(payment).data)
         return Response(serializer.errors)
+    except Exception as e:
+        return Response({"erro": str(e)}, status=400)
+
+
+@api_view(['POST'])
+def post_balance_loan(request, id_loan):
+    try:
+        try:
+            loan = Loan.objects.get(id=id_loan)
+        except Exception as e:
+            return Response({"erro": "Cant find loan"}, status=400)
+        data = json.loads(request.body.decode('utf-8'))
+        date = data['date']
+        return Response({"balance": loan.balance(date)})
     except Exception as e:
         return Response({"erro": str(e)}, status=400)
