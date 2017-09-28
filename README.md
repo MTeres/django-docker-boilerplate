@@ -19,3 +19,8 @@
 - A aplicação estará rodando `http://localhost:8000`
 
 **OBS:** Importante levantar o container do Mysql (sozinho) na primeira vez que roda o projeto para que seja criada corretamenta a instancia, sem risco de conflitos. As proximas vezes já será possivel rodar todos os containers diretamente.
+
+
+- A aplicação apresenta uma lisa com os loans em  `http://localhost:8000/dashboard`
+
+- Os endpoints estão em: `http://localhost:8000/api/loans/` , `http://localhost:8000/api/loans/<:id>/payments` e `http://localhost:8000/api/loans/<:id>/balance`
