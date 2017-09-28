@@ -21,7 +21,11 @@ class PaymentSerializer(serializers.ModelSerializer):
         month = data['date'].month
         year = data['date'].year
         query = Payment.objects.filter(date__month=month, date__year=year, loan=data['loan'])
+
         if query.exists():
             raise ValidationError(('Invalid date, this payment already exist.'))
+
+        if data['date'] < data['loan'].date:
+            raise ValidationError(('Invalid date.'))
 
         return data
