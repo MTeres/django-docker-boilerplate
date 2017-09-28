@@ -28,4 +28,7 @@ class PaymentSerializer(serializers.ModelSerializer):
         if data['date'] < data['loan'].date:
             raise ValidationError(('Invalid date.'))
 
+        if data['loan'].installment() != data['amount']:
+            raise ValidationError(('Invalid amount, pay the correct amount($%s).')%(data['loan'].installment()))
+
         return data

@@ -5,7 +5,7 @@ import uuid
 
 class Loan(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    amount = models.IntegerField(validators=[MinValueValidator(1)])
+    amount = models.FloatField(validators=[MinValueValidator(1)])
     term = models.IntegerField(validators=[MinValueValidator(1)])
     rate = models.FloatField(validators=[MinValueValidator(0.01)])
     date = models.DateTimeField()
