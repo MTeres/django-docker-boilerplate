@@ -1,5 +1,6 @@
+import datetime
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator
 import uuid
 
 
@@ -16,9 +17,15 @@ class Loan(models.Model):
         return float("%.2f" % monthly)
 
     def balance(self, date):
-        payments = Payment.objects.filter(date__lte=date, loan=self)
+        payments = Payment.objects.filter(date__lte=date, loan=self, payment=Payment.MADE)
         total = (payments.aggregate(total=models.Sum('amount'))['total'])
-        return total
+        if total is not None:
+            return total
+        return 0.
+
+    def balance_now(self):
+        date = datetime.datetime.now()
+        return self.balance(date)
 
     def get_loan_id_formatted(self):
         return self.id
@@ -33,7 +40,7 @@ class Payment(models.Model):
         (MISSED, 'Payment missed'),
     )
 
-    amount = models.FloatField(validators=[MinValueValidator(1)])
+    amount = models.FloatField(validators=[MinValueValidator(0.01)])
     payment = models.CharField(max_length=6, choices=PAYMANT_CHOICES)
     date = models.DateTimeField()
     loan = models.ForeignKey(Loan, on_delete=models.CASCADE)

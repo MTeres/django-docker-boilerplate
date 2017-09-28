@@ -41,7 +41,7 @@ ROOT_URLCONF = 'base.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'static')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,23 +92,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# # INFORMAÇÕES DO CONTROLE DE API
-# JWT_AUTH = {'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=60 * 60),
-#             'JWT_RESPONSE_PAYLOAD_HANDLER':
-#             'core.perfil.serializers.jwt_response_payload_handler',
-#             }
-# REST_FRAMEWORK = {
-#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     ),
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-#         'rest_framework.authentication.SessionAuthentication',
-#         'rest_framework.authentication.BasicAuthentication',
-#     ),
-# }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -123,5 +106,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = os.path.join(BASE_DIR, 'static') + '/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]

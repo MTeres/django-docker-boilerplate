@@ -18,4 +18,4 @@
 
 - A aplicação estará rodando `http://localhost:8000`
 
-**OBS:** Importante levantar o container do Mysql (sozinho) na primeira vez que roda o projeto para que seja criada corretamenta a instancia, sem risco de conflitos. As proximas vezes já será possivel rodar todos os containers.
+**OBS:** Importante levantar o container do Mysql (sozinho) na primeira vez que roda o projeto para que seja criada corretamenta a instancia, sem risco de conflitos. As proximas vezes já será possivel rodar todos os containers diretamente.
