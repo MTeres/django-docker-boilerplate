@@ -10,10 +10,6 @@ base/*/__pycache__/*
 core/*/__pycache__/*
 base/__pycache__/*
 */__pycache__/*
-*/static/*
-apps/*/static/*
-/*/static/*
-static/*
 local_settings.py
 db.sqlite3
 media

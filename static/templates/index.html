@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "templates/css/main.css" %}">
+	<meta charset="utf-8" />
+	<title>Table Style</title>
+	<meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+</head>
+
+<body>
+<div class="table-title">
+<h3>Loans Table</h3>
+</div>
+<table class="table-fill">
+<thead>
+<tr>
+<th class="text-left">Loan ID</th>
+<th class="text-left">Term</th>
+<th class="text-left">Amount</th>
+<th class="text-left">Rate</th>
+<th class="text-left">Installment</th>
+<th class="text-left">Balance</th>
+</tr>
+</thead>
+<tbody class="table-hover">
+{% for loan in object_list %}
+<tr>
+<td class="text-left">{{ loan.id }}</td>
+<td class="text-left">{{ loan.term }}</td>
+<td class="text-left">{{ loan.amount }}</td>
+<td class="text-left">{{ loan.rate }}</td>
+<td class="text-left">{{ loan.installment }}</td>
+<td class="text-left">{{ loan.balance_now }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+  </body>
