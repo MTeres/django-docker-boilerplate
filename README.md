@@ -1,5 +1,3 @@
-# Software Engineer Challenge
-
 ## Dependencias locais
 
 * Docker
